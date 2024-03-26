@@ -27,7 +27,7 @@ struct CircularQueue {
         this->size--;
       }
     }
-    
+
     void dequeue() {
       if (this->empty()) {
         throw runtime_error("[CircularQueue]: is empty!");
@@ -64,12 +64,12 @@ struct CircularQueue {
 
       while (i != this->tail_index) {
         cout << "Item: " << this->items[i] << " | Position: " << i << endl;
-        
+
         i = this->is_last(i) ? 0 : i + 1;
       }
     }
 
-    int size() { 
+    int size() {
       return this->size;
     }
 

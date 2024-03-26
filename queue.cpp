@@ -68,7 +68,7 @@ struct Queue {
       }
     }
 
-    int size() { 
+    int size() {
       return this->size;
     }
 
