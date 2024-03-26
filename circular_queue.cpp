@@ -65,7 +65,7 @@ struct CircularQueue {
       while (i != this->tail_index) {
         cout << "Item: " << this->items[i] << " | Position: " << i << endl;
         
-        i = this->is_last(i) ? 0 : i++;
+        i = this->is_last(i) ? 0 : i + 1;
       }
     }
 

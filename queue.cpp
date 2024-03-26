@@ -8,7 +8,7 @@ struct Queue {
     unsigned capacity;
     int front;
     int* items;
-    unsigned size = 0;
+    unsigned int size = 0;
     int tail;
 
   public:
@@ -21,7 +21,7 @@ struct Queue {
         this->items[i] = NULL;
 
         for (int j = i; j < this->size; j++) {
-          this->items[j] = NULL;
+          this->items[j] = this->items[j + 1];
         }
       }
     }
@@ -31,11 +31,11 @@ struct Queue {
         return NULL;
       }
 
-      this->front = this->items[1];
-
       for (int i = 0; i < this->size; i++) {
         this->items[i] = this->items[i + 1];
       }
+
+      this->front = this->items[0];
 
       return this->front;
     }
@@ -51,7 +51,6 @@ struct Queue {
 
       this->tail = item;
       this->items[this->size] = item;
-
       this->size++;
     }
 
