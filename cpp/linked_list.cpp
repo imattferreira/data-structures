@@ -12,7 +12,7 @@ public:
   Node(int v) : value(v) {}
 };
 
-struct DoublyLinkedList
+struct LinkedList
 {
 private:
   int size = 0;
@@ -83,7 +83,7 @@ public:
 
 int main()
 {
-  DoublyLinkedList *list = new DoublyLinkedList();
+  LinkedList *list = new LinkedList();
 
   list->insert(10);
   list->insertAtBeginning(5);
