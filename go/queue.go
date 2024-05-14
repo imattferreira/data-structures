@@ -33,24 +33,29 @@ func (q *Queue) clear() {
 	q.size = 0
 }
 
-func (q *Queue) dequeue() {
+func (q *Queue) dequeue() (*int64, error) {
 	if q.empty() {
-		errors.New("[queue] is empty!")
+		return nil, errors.New("[queue] is empty!")
 	}
 
+	var item = q.items[q.size]
 	q.size--
 	q.items[q.size] = nil
 	q.tail = q.items[q.size-1]
+
+	return item, nil
 }
 
-func (q *Queue) enqueue(item *int64) {
+func (q *Queue) enqueue(item *int64) (*int64, error) {
 	if q.full() {
-		errors.New("[queue] is full!")
+		return nil, errors.New("[queue] is full!")
 	}
 
 	q.items[q.size] = item
 	q.size++
 	q.tail = item
+
+	return item, nil
 }
 
 func (q *Queue) empty() bool {

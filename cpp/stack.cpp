@@ -42,8 +42,8 @@ public:
       throw runtime_error("[Stack]: is full!");
     }
 
-    this->items[this->last_index] = item;
     this->last_index++;
+    this->items[this->last_index] = item;
   }
 
   int pop()
@@ -62,7 +62,7 @@ public:
 
     while (i != 0)
     {
-      this->items[i] = NULL;
+      cout << this->items[i] << endl;
       i--;
     }
   }

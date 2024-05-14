@@ -22,10 +22,6 @@ func NewStack(capacity uint64) *Stack {
 }
 
 func (s Stack) clear() {
-	if s.empty() {
-		errors.New("[stack] is empty!")
-	}
-
 	var i = s.size - 1
 
 	for i != 0 {
@@ -44,13 +40,15 @@ func (s *Stack) full() bool {
 	return s.size == s.capacity
 }
 
-func (s *Stack) insert(item *int64) {
+func (s *Stack) insert(item *int64) (*int64, error) {
 	if s.full() {
-		errors.New("[stack] is full!")
+		return nil, errors.New("[stack] is full!")
 	}
 
 	s.lastIndex++
 	s.items[s.lastIndex] = item
+
+	return item, nil
 }
 
 func (s *Stack) pop() {}
