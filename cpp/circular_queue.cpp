@@ -25,11 +25,12 @@ public:
 
   void clear()
   {
-    while (this->size != 0)
+    int i = this->front_index;
+
+    while (i != this->tail_index)
     {
-      this->front_index = this->is_last(this->front_index) ? 0 : this->front_index + 1;
-      this->items[this->front_index] = NULL;
-      this->size--;
+      this->items[i] = NULL;
+      i = this->is_last(i) ? 0 : i + 1;
     }
   }
 
