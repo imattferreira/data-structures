@@ -49,6 +49,7 @@ func (q *Queue) enqueue(item *int64) {
 	}
 
 	q.items[q.size] = item
+	q.size++
 	q.tail = item
 }
 
