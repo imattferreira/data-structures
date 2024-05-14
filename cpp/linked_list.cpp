@@ -60,6 +60,7 @@ public:
       if (curr->next == nullptr)
       {
         prev->next = nullptr;
+        delete curr;
         break;
       }
 

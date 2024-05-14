@@ -68,6 +68,7 @@ public:
       if (tmp->next == nullptr)
       {
         tmp->previous->next = nullptr;
+        delete tmp;
         break;
       }
 
