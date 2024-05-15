@@ -22,30 +22,37 @@ func NewQueue(capacity uint64) *Queue {
 }
 
 func (q *Queue) clear() {
-	// TODO: finish implementation (wrong implementation is here) -> FIFO
-	// for q.size != 0 {
-	// 	q.items[q.size-1] = nil
-	// 	q.size--
-	// }
+	var i uint64 = 0
 
-	// q.front = nil
-	// q.tail = nil
+	for i < (q.size - 1) {
+		q.items[i] = nil
+		i++
+	}
+
+	q.front = nil
+	q.tail = nil
+	q.size = 0
 }
 
 func (q *Queue) dequeue() {
-	// TODO: finish implementation (wrong implementation is here) -> FIFO
-	// if q.empty() {
-	// 	return
-	// }
+	if q.empty() {
+		return
+	}
 
-	// q.size--
-	// q.items[q.size] = nil
-	// q.tail = q.items[q.size-1]
+	var i uint64 = 1
+
+	for i <= q.size {
+		q.items[i-1] = q.items[i]
+		i++
+	}
+
+	q.front = q.items[0]
+	q.size--
 }
 
 func (q *Queue) enqueue(item *int64) error {
 	if q.full() {
-		return errors.New("[queue] is full!")
+		return errors.New("[queue] is full")
 	}
 
 	q.items[q.size] = item

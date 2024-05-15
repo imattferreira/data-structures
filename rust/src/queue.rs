@@ -20,15 +20,29 @@ impl Queue {
     }
 
     pub fn clear(&mut self) {
-        // TODO: finish implementation (wrong implementation is here) -> FIFO
-        // while self.size != 0 {
-        //   self.size
-        // }
+        let mut i = 0;
+
+        while i < self.size {
+            self.items[i as usize] = None;
+            i += 1;
+        }
+
+        self.front = None;
+        self.tail = None;
+        self.size = 0;
     }
 
     pub fn dequeue(&mut self) {
-        // TODO: finish implementation (wrong implementation is here) -> FIFO
-        // self.size -= 1;
+        if self.empty() {
+            return;
+        }
+
+        let mut i = 0;
+
+        while i <= self.size {
+            self.items[(i - 1) as usize] = self.items[i as usize];
+            i += 1;
+        }
     }
 
     pub fn enqueue(&mut self, item: i64) -> Result<(), Error> {
