@@ -22,7 +22,7 @@ func NewStack(capacity uint64) *Stack {
 }
 
 func (s Stack) clear() {
-	var i = s.size - 1
+	i := s.size - 1
 
 	for i != 0 {
 		s.items[i] = nil
@@ -51,10 +51,17 @@ func (s *Stack) insert(item *int64) (*int64, error) {
 	return item, nil
 }
 
-func (s *Stack) pop() {}
+func (s *Stack) pop() {
+	if s.empty() {
+		return
+	}
+
+	s.items[s.lastIndex] = nil
+	s.lastIndex--
+}
 
 func (s *Stack) show() {
-	var i = s.size - 1
+	i := s.size - 1
 
 	for i != 0 {
 		fmt.Println(s.items[i])

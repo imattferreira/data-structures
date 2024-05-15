@@ -27,13 +27,13 @@ func NewLinkedList() *LinkedList {
 }
 
 func (ll *LinkedList) insert(value int64) {
-	var node = NewNode(value)
+	node := NewNode(value)
 
 	if ll.head == nil {
 		ll.head = node
 	}
 
-	var tmp = ll.head
+	tmp := ll.head
 
 	for tmp != nil {
 		if tmp.next == nil {
@@ -46,7 +46,7 @@ func (ll *LinkedList) insert(value int64) {
 }
 
 func (ll *LinkedList) insertAtBeginning(value int64) {
-	var node = NewNode(value)
+	node := NewNode(value)
 
 	node.next = ll.head
 	ll.head = node
@@ -54,7 +54,7 @@ func (ll *LinkedList) insertAtBeginning(value int64) {
 
 func (ll *LinkedList) pop() {
 	var previous *Node = nil
-	var current = ll.head
+	current := ll.head
 
 	for current != nil {
 		if current.next == nil {
@@ -68,7 +68,7 @@ func (ll *LinkedList) pop() {
 }
 
 func (ll *LinkedList) show() {
-	var node = ll.head
+	node := ll.head
 
 	for node != nil {
 		fmt.Println(node.value)

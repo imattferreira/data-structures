@@ -21,7 +21,7 @@ func NewCircularQueue(capacity uint64) *CircularQueue {
 }
 
 func (cq *CircularQueue) clear() {
-	var i = cq.frontIndex
+	i := cq.frontIndex
 
 	for i != cq.tailIndex {
 		cq.items[i] = nil
@@ -41,7 +41,7 @@ func (cq *CircularQueue) dequeue() (*int64, error) {
 		return nil, errors.New("[circular-queue] is empty!")
 	}
 
-	var item = cq.items[cq.frontIndex]
+	item := cq.items[cq.frontIndex]
 
 	cq.frontIndex = (func() uint64 {
 		if cq.isLast(cq.frontIndex) {
@@ -81,7 +81,7 @@ func (cq *CircularQueue) tail() *int64 {
 }
 
 func (cq *CircularQueue) show() {
-	var i = cq.frontIndex
+	i := cq.frontIndex
 
 	for i != cq.tailIndex {
 		fmt.Println(cq.items[i])

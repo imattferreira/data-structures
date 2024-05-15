@@ -38,7 +38,7 @@ func (q *Queue) dequeue() (*int64, error) {
 		return nil, errors.New("[queue] is empty!")
 	}
 
-	var item = q.items[q.size]
+	item := q.items[q.size]
 	q.size--
 	q.items[q.size] = nil
 	q.tail = q.items[q.size-1]
