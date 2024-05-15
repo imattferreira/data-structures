@@ -1,4 +1,4 @@
-package structures
+package circularqueue
 
 import (
 	"errors"
