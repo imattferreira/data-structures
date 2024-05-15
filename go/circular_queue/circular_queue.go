@@ -6,8 +6,11 @@ import (
 )
 
 type CircularQueue struct {
-	capacity, frontIndex, tailIndex, size uint64
-	items                                 []*int64
+	capacity,
+	frontIndex,
+	tailIndex,
+	size uint64
+	items []*int64
 }
 
 func NewCircularQueue(capacity uint64) *CircularQueue {
@@ -25,51 +28,29 @@ func (cq *CircularQueue) clear() {
 
 	for i != cq.tailIndex {
 		cq.items[i] = nil
-
-		i = (func() uint64 {
-			if cq.isLast(i) {
-				return 0
-			}
-
-			return i + 1
-		})()
+		i = cq.nextIndex(i)
 	}
 }
 
-func (cq *CircularQueue) dequeue() (*int64, error) {
+func (cq *CircularQueue) dequeue() {
 	if cq.empty() {
-		return nil, errors.New("[circular-queue] is empty!")
+		return
 	}
 
-	item := cq.items[cq.frontIndex]
-
-	cq.frontIndex = (func() uint64 {
-		if cq.isLast(cq.frontIndex) {
-			return 0
-		}
-
-		return cq.frontIndex + 1
-	})()
+	cq.frontIndex = cq.nextIndex(cq.frontIndex)
 	cq.size--
-
-	return item, nil
 }
 
-func (cq *CircularQueue) enqueue(value *int64) (*int64, error) {
+func (cq *CircularQueue) enqueue(value *int64) error {
 	if cq.full() {
-		return nil, errors.New("[circular-queue] is full!")
+		return errors.New("[circular-queue] is full")
 	}
 
-	cq.tailIndex = (func() uint64 {
-		if cq.isLast(cq.tailIndex) {
-			return 0
-		}
-
-		return cq.tailIndex - 1
-	})()
+	cq.tailIndex = cq.nextIndex(cq.tailIndex)
 	cq.items[cq.tailIndex] = value
+	cq.size++
 
-	return value, nil
+	return nil
 }
 
 func (cq *CircularQueue) front() *int64 {
@@ -85,19 +66,16 @@ func (cq *CircularQueue) show() {
 
 	for i != cq.tailIndex {
 		fmt.Println(cq.items[i])
-
-		i = (func() uint64 {
-			if cq.isLast(i) {
-				return 0
-			}
-
-			return i + 1
-		})()
+		i = cq.nextIndex(i)
 	}
 }
 
-func (cq *CircularQueue) isLast(index uint64) bool {
-	return index == cq.capacity-1
+func (cq *CircularQueue) nextIndex(index uint64) uint64 {
+	if index == cq.capacity-1 {
+		return 0
+	}
+
+	return index + 1
 }
 
 func (cq *CircularQueue) full() bool {

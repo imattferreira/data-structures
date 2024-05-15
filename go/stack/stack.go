@@ -8,8 +8,7 @@ import (
 type Stack struct {
 	items []*int64
 	capacity,
-	lastIndex,
-	size uint64
+	lastIndex uint64
 }
 
 func NewStack(capacity uint64) *Stack {
@@ -17,38 +16,33 @@ func NewStack(capacity uint64) *Stack {
 		capacity:  capacity,
 		items:     []*int64{},
 		lastIndex: 0,
-		size:      0,
 	}
 }
 
-func (s Stack) clear() {
-	i := s.size - 1
-
-	for i != 0 {
-		s.items[i] = nil
+func (s *Stack) clear() {
+	for s.lastIndex >= 0 {
+		s.items[s.lastIndex] = nil
+		s.lastIndex--
 	}
-
-	s.size = 0
-	s.lastIndex = 0
 }
 
 func (s *Stack) empty() bool {
-	return s.size == 0
+	return s.size() == 0
 }
 
 func (s *Stack) full() bool {
-	return s.size == s.capacity
+	return s.size() == s.capacity
 }
 
-func (s *Stack) insert(item *int64) (*int64, error) {
+func (s *Stack) insert(item *int64) error {
 	if s.full() {
-		return nil, errors.New("[stack] is full!")
+		return errors.New("[stack] is full")
 	}
 
 	s.lastIndex++
 	s.items[s.lastIndex] = item
 
-	return item, nil
+	return nil
 }
 
 func (s *Stack) pop() {
@@ -60,8 +54,12 @@ func (s *Stack) pop() {
 	s.lastIndex--
 }
 
+func (s *Stack) size() uint64 {
+	return s.lastIndex + 1
+}
+
 func (s *Stack) show() {
-	i := s.size - 1
+	i := s.lastIndex
 
 	for i != 0 {
 		fmt.Println(s.items[i])

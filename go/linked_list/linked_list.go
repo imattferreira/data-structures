@@ -28,9 +28,11 @@ func NewLinkedList() *LinkedList {
 
 func (ll *LinkedList) insert(value int64) {
 	node := NewNode(value)
+	ll.size++
 
 	if ll.head == nil {
 		ll.head = node
+		return
 	}
 
 	tmp := ll.head
@@ -47,14 +49,20 @@ func (ll *LinkedList) insert(value int64) {
 
 func (ll *LinkedList) insertAtBeginning(value int64) {
 	node := NewNode(value)
+	ll.size++
 
 	node.next = ll.head
 	ll.head = node
 }
 
 func (ll *LinkedList) pop() {
+	if ll.head == nil {
+		return
+	}
+
 	var previous *Node = nil
 	current := ll.head
+	ll.size--
 
 	for current != nil {
 		if current.next == nil {

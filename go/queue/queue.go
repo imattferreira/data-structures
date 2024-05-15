@@ -22,40 +22,35 @@ func NewQueue(capacity uint64) *Queue {
 }
 
 func (q *Queue) clear() {
-	var i uint64 = 0
-
-	for i < q.size {
-		q.items[i] = nil
+	for q.size != 0 {
+		q.items[q.size-1] = nil
+		q.size--
 	}
 
 	q.front = nil
 	q.tail = nil
-	q.size = 0
 }
 
-func (q *Queue) dequeue() (*int64, error) {
+func (q *Queue) dequeue() {
 	if q.empty() {
-		return nil, errors.New("[queue] is empty!")
+		return
 	}
 
-	item := q.items[q.size]
 	q.size--
 	q.items[q.size] = nil
 	q.tail = q.items[q.size-1]
-
-	return item, nil
 }
 
-func (q *Queue) enqueue(item *int64) (*int64, error) {
+func (q *Queue) enqueue(item *int64) error {
 	if q.full() {
-		return nil, errors.New("[queue] is full!")
+		return errors.New("[queue] is full!")
 	}
 
 	q.items[q.size] = item
-	q.size++
 	q.tail = item
+	q.size++
 
-	return item, nil
+	return nil
 }
 
 func (q *Queue) empty() bool {
@@ -71,5 +66,6 @@ func (q *Queue) show() {
 
 	for i < q.size {
 		fmt.Println(q.items[i])
+		i++
 	}
 }
