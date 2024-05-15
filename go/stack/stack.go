@@ -6,16 +6,16 @@ import (
 )
 
 type Stack struct {
-	items []*int64
-	capacity,
-	lastIndex uint64
+	items     []*int64
+	capacity  uint64
+	lastIndex int64
 }
 
 func NewStack(capacity uint64) *Stack {
 	return &Stack{
 		capacity:  capacity,
 		items:     []*int64{},
-		lastIndex: 0,
+		lastIndex: -1,
 	}
 }
 
@@ -27,11 +27,11 @@ func (s *Stack) clear() {
 }
 
 func (s *Stack) empty() bool {
-	return s.size() == 0
+	return s.lastIndex == -1
 }
 
 func (s *Stack) full() bool {
-	return s.size() == s.capacity
+	return s.size() == int64(s.capacity)
 }
 
 func (s *Stack) insert(item *int64) error {
@@ -54,14 +54,14 @@ func (s *Stack) pop() {
 	s.lastIndex--
 }
 
-func (s *Stack) size() uint64 {
+func (s *Stack) size() int64 {
 	return s.lastIndex + 1
 }
 
 func (s *Stack) show() {
 	i := s.lastIndex
 
-	for i != 0 {
+	for i >= 0 {
 		fmt.Println(s.items[i])
 	}
 }
