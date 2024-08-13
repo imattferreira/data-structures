@@ -1,3 +1,4 @@
+// Big O = O**2
 #include <stdio.h>
 #include <iostream>
 
@@ -5,15 +6,10 @@ using namespace std;
 
 int *bubbleSort(int v[], int size)
 {
-  bool swapped = false;
-
   for (int i = 0; i < size - 1; i++)
   {
-    /**
-     * small optimization: iterate only over i until last index instead
-     * of all elems
-     */
-    for (int j = 0; j < i - 1; j++)
+    // small optimization: iterate until unsorted position
+    for (int j = 0; j < size - i - 1; j++)
     {
       if (v[j] > v[j + 1])
       {
@@ -21,12 +17,6 @@ int *bubbleSort(int v[], int size)
         v[j] = v[j + 1];
         v[j + 1] = tmp;
       }
-    }
-
-    // small optimization: consider vector as already sorted
-    if (swapped == false)
-    {
-      break;
     }
   }
 
