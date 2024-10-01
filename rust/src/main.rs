@@ -1,3 +1,4 @@
+mod binary_search;
 mod circular_queue;
 mod doubly_linked_list;
 mod linked_list;
